@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+  labels:
+    app: hello
+    version: v1.0
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello
+      version: v1.0
+  template:
+    metadata:
+      labels:
+        app: hello
+        version: v1.0
+    spec:
+      containers:
+      - name: hello
+        image: nginx
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 80
+          protocol: TCP
+        # env:
+        # - name: GREETER
+        #   value: 'http://greeter:9080'
