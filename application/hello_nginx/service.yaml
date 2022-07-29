@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello
+  name: hello-nginx
   labels:
-    app: hello
+    app: hello-nginx
 spec:
   type: ClusterIP
   selector:
-    app: hello
+    app: hello-nginx
   ports:
   - name: http
     port: 80

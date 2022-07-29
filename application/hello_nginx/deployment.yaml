@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello
+  name: hello-nginx
   labels:
-    app: hello
+    app: hello-nginx
     version: v1.0
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hello
+      app: hello-nginx
       version: v1.0
   template:
     metadata:
       labels:
-        app: hello
+        app: hello-nginx
         version: v1.0
     spec:
       containers:
-      - name: hello
+      - name: hello-nginx
         image: nginx
         imagePullPolicy: IfNotPresent
         ports:

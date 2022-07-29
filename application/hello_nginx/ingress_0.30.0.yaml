@@ -1,13 +1,13 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: hello
+  name: hello-nginx
 spec:
   rules:
-  - host: www.example.com
+  - host: www.hello-nginx.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: hello
+          serviceName: hello-nginx
           servicePort: 80
