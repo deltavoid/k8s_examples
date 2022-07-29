@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-nginx
+  labels:
+    app: hello-nginx
+    version: v1.0
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-nginx
+      version: v1.0
+  template:
+    metadata:
+      labels:
+        app: hello-nginx
+        version: v1.0
+    spec:
+      containers:
+      - name: hello-nginx
+        image: nginx
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        # - mountPath: /etc/nginx
+        #   name: nginx_etc
+        #   readOnly: true
+        - mountPath: /usr/share/nginx/html
+          name: nginx-html
+          readOnly: true
+
+      volumes:
+      # - name: nginx_etc
+      #   gitRepo:
+      #     repository: https://github.com/deltavoid/nginx_etc.git
+      #     revision: master      
+      #     directory: .           
+      - name: nginx-html
+        gitRepo:
+          repository: https://github.com/deltavoid/nginx_html_example.git
+          revision: master      
+          directory: .     
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-nginx
+  labels:
+    app: hello-nginx
+spec:
+  type: NodePort
+  selector:
+    app: hello-nginx
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  sessionAffinity: None
+  
