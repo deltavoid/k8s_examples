@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debian10-operator
+  labels:
+    app: debian10-operator
+spec:
+  containers:
+  - name: debian10-operator
+    image: deltavoid/debian10_operator
+    ports:
+    - containerPort: 22
