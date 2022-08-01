@@ -26,19 +26,19 @@ spec:
           containerPort: 80
           protocol: TCP
         volumeMounts:
-        # - mountPath: /etc/nginx
-        #   name: nginx_etc
-        #   readOnly: true
+        - mountPath: /etc/nginx
+          name: nginx-etc
+          readOnly: true
         - mountPath: /usr/share/nginx/html
           name: nginx-html
           readOnly: true
 
       volumes:
-      # - name: nginx_etc
-      #   gitRepo:
-      #     repository: https://github.com/deltavoid/nginx_etc.git
-      #     revision: master      
-      #     directory: .           
+      - name: nginx-etc
+        gitRepo:
+          repository: https://github.com/deltavoid/nginx_etc.git
+          revision: nginx-1.22.0-base
+          directory: .           
       - name: nginx-html
         gitRepo:
           repository: https://github.com/deltavoid/nginx_html_example.git
