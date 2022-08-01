@@ -1,0 +1,7 @@
+
+
+
+kubectl create deployment hello-nginx --image=nginx
+
+kubectl expose deployment hello-nginx --type=NodePort --port=8080 --target-port=80 
+

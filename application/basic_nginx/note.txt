@@ -1,0 +1,5 @@
+
+
+
+kubectl run test-nginx --image=nginx 
+
