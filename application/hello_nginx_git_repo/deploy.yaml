@@ -37,7 +37,7 @@ spec:
       - name: nginx-etc
         gitRepo:
           repository: https://github.com/deltavoid/nginx_etc.git
-          revision: nginx-1.22.0-base
+          revision: nginx-1.22.0-proxy
           directory: .           
       - name: nginx-html
         gitRepo:
