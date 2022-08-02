@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-static
+  labels:
+    app: nginx-static
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.22.0
+    imagePullPolicy: IfNotPresent
+    ports:
+    - name: web
+      containerPort: 80
+      protocol: TCP
+    volumeMounts:
+    - mountPath: /etc/nginx
+      name: nginx-etc
+      readOnly: true
+    - mountPath: /usr/share/nginx/html
+      name: nginx-html
+      readOnly: true
+  volumes:
+  - name: nginx-etc
+    gitRepo:
+      repository: https://github.com/deltavoid/nginx_etc.git
+      revision: nginx-1.22.0-base
+      directory: .           
+  - name: nginx-html
+    gitRepo:
+      repository: https://github.com/deltavoid/nginx_html_example.git
+      revision: master      
+      directory: .  
