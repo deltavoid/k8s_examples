@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: debian10-operator
+  # namespace: default
+spec:
+  selector:
+    matchLabels:
+      name: debian10-operator
+  template:
+    metadata:
+      labels:
+        name: debian10-operator
+    spec:
+      containers:
+      - name: debian10-operator
+        image: deltavoid/debian10_operator
+        # command: ["sleep", "infinity"]
+        ports:
+          - containerPort: 22
