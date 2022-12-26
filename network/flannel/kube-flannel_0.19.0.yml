@@ -81,7 +81,9 @@ data:
     }
   net-conf.json: |
     {
-      "Network": "100.64.0.0/10",
+      # "Network": "100.64.0.0/10",
+      "Network": "10.64.0.0/12",
+
       "Backend": {
         "Type": "vxlan"
       }
