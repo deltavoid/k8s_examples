@@ -1,0 +1,17 @@
+
+
+
+
+
+kubernetes v1.24.0
+    
+    sealos  sealos_examples/2022.12.15/Clusterfile.kubeadm.1.yaml
+
+
+flannel v0.19.0  
+
+    pod_cidr: 172.16.0.0/16
+    service_cidr: 172.17.0.0/16
+
+    yaml  k8s_examples/network/flannel/kube-flannel_0.19.0_host-gw.yml
+
