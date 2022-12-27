@@ -12,6 +12,9 @@ spec:
       labels:
         name: debian10-operator
     spec:
+      tolerations:
+      - operator: Exists
+        effect: NoSchedule
       containers:
       - name: debian10-operator
         image: deltavoid/debian10_operator
