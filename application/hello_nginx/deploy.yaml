@@ -38,7 +38,8 @@ metadata:
   labels:
     app: hello-nginx
 spec:
-  type: ClusterIP
+  # type: ClusterIP
+  type: NodePort
   selector:
     app: hello-nginx
   ports:
