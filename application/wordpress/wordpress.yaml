@@ -144,7 +144,8 @@ metadata:
     app.kubernetes.io/instance: my-wordpress
     app.kubernetes.io/managed-by: Helm
 spec:
-  type: LoadBalancer
+  # type: LoadBalancer
+  type: NodePort
   externalTrafficPolicy: "Cluster"
   sessionAffinity: None
   ports:
