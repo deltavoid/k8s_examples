@@ -10,15 +10,15 @@ data:
     server_port = 7000
     log_level=info
 
-    [hello_nginx_10180]
+    [hello_nginx_10182]
     type = tcp
     local_ip=hello-nginx.hello-nginx
     local_port=80
-    remote_port=10180
+    remote_port=10182
 
-    [argocd_10130]
+    [argocd_10183]
     type = tcp
     local_ip=argocd-server.argocd
     local_port=80
-    remote_port=10130
+    remote_port=10183
 
