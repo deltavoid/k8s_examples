@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    workload.user.cattle.io/workloadselector: deployment-default-frpc
+  name: frpc
+  namespace: frpc
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-default-frpc
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-default-frpc
+    spec:
+      containers:
+      - image: snowdreamtech/frpc:0.33.0
+        imagePullPolicy: Always
+        name: frpc
+        volumeMounts:
+        - mountPath: /etc/frp
+          name: vol1
+      volumes:
+      - configMap:
+          defaultMode: 256
+          items:
+          - key: frpc.ini
+            path: frpc.ini
+          name: frpc
+          optional: false
+        name: vol1
