@@ -1,3 +1,26 @@
+# hello-nginx-proxy
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-nginx-proxy
+data:
+  hello-nginx-proxy.conf: |-
+    server {
+      listen 80;
+      listen [::]:80;
+
+      server_name _;
+
+      #root /var/www/proxy_simple;
+      root /usr/share/nginx/html;
+
+      location / {
+        proxy_pass http://hello-nginx.hello-nginx;
+      }
+    }
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,8 +49,9 @@ spec:
           containerPort: 80
           protocol: TCP
         volumeMounts:
-        - mountPath: /etc/nginx
+        - mountPath: /etc/nginx/conf.d/hello-nginx-proxy.conf
           name: nginx-etc
+          subPath: hello-nginx-proxy.conf
           readOnly: true
         - mountPath: /usr/share/nginx/html
           name: nginx-html
@@ -35,19 +59,15 @@ spec:
 
       volumes:
       - name: nginx-etc
-        gitRepo:
-          repository: https://github.com/deltavoid/nginx_etc.git
-          revision: nginx-1.22.0-proxy
-          directory: .           
+        configMap:
+          name: hello-nginx-proxy
       - name: nginx-html
         gitRepo:
           repository: https://github.com/deltavoid/nginx_html_example.git
           revision: master      
           directory: .     
-
-
+          
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -64,4 +84,4 @@ spec:
     targetPort: 80
     protocol: TCP
   sessionAffinity: None
-  
+
