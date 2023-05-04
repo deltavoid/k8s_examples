@@ -58,7 +58,7 @@ spec:
           containerPort: 80
           protocol: TCP
         volumeMounts:
-        - mountPath: /etc/nginx/conf.d/hello-nginx-proxy.conf
+        - mountPath: /etc/nginx/conf.d/default.conf
           name: nginx-etc
           subPath: hello-nginx-proxy.conf
           readOnly: true
