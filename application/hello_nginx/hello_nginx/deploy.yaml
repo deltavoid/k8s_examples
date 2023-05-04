@@ -21,7 +21,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: index
+  name: hello-nginx-index
 data:
   index.html: |-
     hello nginx!
@@ -74,7 +74,7 @@ spec:
           name: hello-nginx
       - name: nginx-html
         configMap:
-          name: index 
+          name: hello-nginx-index
 
 ---
 

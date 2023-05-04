@@ -23,7 +23,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: index
+  name: hello-nginx-proxy-index
 data:
   index.html: |-
     hello nginx proxy!
@@ -77,7 +77,7 @@ spec:
         #   revision: master      
         #   directory: .     
         configMap:
-          name: index
+          name: hello-nginx-proxy-index
 
 ---
 apiVersion: v1
