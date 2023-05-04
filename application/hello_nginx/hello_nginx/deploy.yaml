@@ -18,6 +18,15 @@ data:
     }
 
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: index
+data:
+  index.html: |-
+    hello nginx!
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -50,19 +59,22 @@ spec:
           name: nginx-etc
           subPath: hello-nginx.conf
           readOnly: true
-        # - mountPath: /usr/share/nginx/html
+        # - mountPath: /usr/share/nginx/html/test.html
         #   name: nginx-html
+        #   subPath: index.html
         #   readOnly: true
+        - mountPath: /usr/share/nginx/html/index.html
+          name: nginx-html
+          subPath: index.html
+          readOnly: true
 
       volumes:
       - name: nginx-etc
         configMap:
           name: hello-nginx
-      # - name: nginx-html
-      #   gitRepo:
-      #     repository: https://github.com/deltavoid/nginx_html_example.git
-      #     revision: master      
-      #     directory: .    
+      - name: nginx-html
+        configMap:
+          name: index 
 
 ---
 
