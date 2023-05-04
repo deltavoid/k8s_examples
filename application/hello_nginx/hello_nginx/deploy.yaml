@@ -1,3 +1,23 @@
+# hello-nginx
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-nginx
+data:
+  hello-nginx.conf: |-
+    server {
+      listen 80;
+      listen [::]:80;
+
+      server_name _;
+
+      #root /var/www/proxy_simple;
+      root /usr/share/nginx/html;
+
+    }
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,15 +39,30 @@ spec:
     spec:
       containers:
       - name: hello-nginx
-        image: nginx
+        image: nginx:1.22.0
         imagePullPolicy: IfNotPresent
         ports:
         - name: web
           containerPort: 80
           protocol: TCP
-        # env:
-        # - name: GREETER
-        #   value: 'http://greeter:9080'
+        volumeMounts:
+        - mountPath: /etc/nginx/conf.d/hello-nginx.conf
+          name: nginx-etc
+          subPath: hello-nginx.conf
+          readOnly: true
+        # - mountPath: /usr/share/nginx/html
+        #   name: nginx-html
+        #   readOnly: true
+
+      volumes:
+      - name: nginx-etc
+        configMap:
+          name: hello-nginx
+      # - name: nginx-html
+      #   gitRepo:
+      #     repository: https://github.com/deltavoid/nginx_html_example.git
+      #     revision: master      
+      #     directory: .    
 
 ---
 
