@@ -19,6 +19,15 @@ data:
         proxy_pass http://hello-nginx.hello-nginx;
       }
     }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: index
+data:
+  index.html: |-
+    hello nginx proxy!
+  
 
 ---
 apiVersion: apps/v1
@@ -53,8 +62,9 @@ spec:
           name: nginx-etc
           subPath: hello-nginx-proxy.conf
           readOnly: true
-        - mountPath: /usr/share/nginx/html
+        - mountPath: /usr/share/nginx/html/index.html
           name: nginx-html
+          subPath: index.html
           readOnly: true
 
       volumes:
@@ -62,11 +72,13 @@ spec:
         configMap:
           name: hello-nginx-proxy
       - name: nginx-html
-        gitRepo:
-          repository: https://github.com/deltavoid/nginx_html_example.git
-          revision: master      
-          directory: .     
-          
+        # gitRepo:
+        #   repository: https://github.com/deltavoid/nginx_html_example.git
+        #   revision: master      
+        #   directory: .     
+        configMap:
+          name: index
+
 ---
 apiVersion: v1
 kind: Service
